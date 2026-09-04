@@ -1,0 +1,24 @@
+@model business_managment_system.Models.CustomerFormViewModel
+
+<div class="mb-3">
+    @Html.LabelFor(m => m.Name, new { @class = "form-label" })
+    @Html.TextBoxFor(m => m.Name, new { @class = "form-control", autocomplete = "organization", maxlength = "150" })
+    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "field-validation-error" })
+</div>
+<div class="row">
+    <div class="col-md-6 mb-3">
+        @Html.LabelFor(m => m.Email, new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", autocomplete = "email", maxlength = "150" })
+        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "field-validation-error" })
+    </div>
+    <div class="col-md-6 mb-3">
+        @Html.LabelFor(m => m.Phone, new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", autocomplete = "tel", maxlength = "30" })
+        @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "field-validation-error" })
+    </div>
+</div>
+<div class="mb-3">
+    @Html.LabelFor(m => m.Address, new { @class = "form-label" })
+    @Html.TextAreaFor(m => m.Address, 3, 20, new { @class = "form-control", maxlength = "250" })
+    @Html.ValidationMessageFor(m => m.Address, "", new { @class = "field-validation-error" })
+</div>

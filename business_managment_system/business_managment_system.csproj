@@ -89,16 +89,20 @@
     <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
+    <Compile Include="Data\CustomerRepository.cs" />
     <Compile Include="Data\DashboardRepository.cs" />
     <Compile Include="Data\DbConnectionFactory.cs" />
     <Compile Include="Data\EndUserRepository.cs" />
     <Compile Include="Filters\AppAuthorizeAttribute.cs" />
     <Compile Include="Helpers\PasswordHasher.cs" />
     <Compile Include="Helpers\SessionKeys.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\CustomerViewModels.cs" />
     <Compile Include="Models\DashboardViewModel.cs" />
     <Compile Include="Models\EndUser.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Services\AuthService.cs" />
+    <Compile Include="Services\CustomerService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -124,6 +128,11 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\Create.cshtml" />
+    <Content Include="Views\Customer\Edit.cshtml" />
+    <Content Include="Views\Customer\Details.cshtml" />
+    <Content Include="Views\Customer\_Form.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reports\" />

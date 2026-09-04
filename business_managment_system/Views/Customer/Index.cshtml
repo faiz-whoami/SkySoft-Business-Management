@@ -1,0 +1,97 @@
+@model business_managment_system.Models.CustomerListViewModel
+@{
+    ViewBag.Title = "Customers";
+}
+
+<div class="page-toolbar">
+    <div>
+        <p class="dash-kicker">Master data</p>
+        <h2 class="dash-title mb-0">Customers</h2>
+        <p class="page-lead mb-0">Commercial buyers of SkySoft products. Deactivated records stay in the database — use Status → Inactive to find and reactivate them.</p>
+    </div>
+    <a class="btn btn-primary" href="@Url.Action("Create")"><i class="bi bi-plus-lg"></i> New customer</a>
+</div>
+
+<div class="card-panel mb-3">
+    @using (Html.BeginForm("Index", "Customer", FormMethod.Get, new { @class = "filter-bar" }))
+    {
+        <div class="filter-field">
+            <label class="form-label" for="search">Search by name</label>
+            @Html.TextBoxFor(m => m.Search, new { @class = "form-control", id = "search", placeholder = "Acme, Lakeside…" })
+        </div>
+        <div class="filter-field filter-field--status">
+            <label class="form-label" for="status">Status</label>
+            <select class="form-select" id="status" name="status">
+                <option value="active" @(Model.Status == "active" ? "selected" : null)>Active</option>
+                <option value="inactive" @(Model.Status == "inactive" ? "selected" : null)>Inactive</option>
+                <option value="all" @(Model.Status == "all" ? "selected" : null)>All</option>
+            </select>
+        </div>
+        <div class="filter-actions">
+            <button class="btn btn-primary" type="submit">Apply</button>
+            <a class="btn btn-outline-secondary" href="@Url.Action("Index")">Reset</a>
+        </div>
+    }
+</div>
+
+<div class="card-panel">
+    @if (Model.Items != null && Model.Items.Count > 0)
+    {
+        <div class="panel-head">
+            <p class="page-lead mb-0">@(Model.Items.Count) customer@(Model.Items.Count == 1 ? "" : "s")</p>
+        </div>
+    }
+    @if (Model.Items == null || Model.Items.Count == 0)
+    {
+        <div class="table-empty">No customers match this filter.</div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table data-table mb-0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Status</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>
+                                <a class="table-link" href="@Url.Action("Details", new { id = item.CustomerId })">@item.Name</a>
+                            </td>
+                            <td>@(string.IsNullOrWhiteSpace(item.Email) ? "—" : item.Email)</td>
+                            <td>@(string.IsNullOrWhiteSpace(item.Phone) ? "—" : item.Phone)</td>
+                            <td>
+                                <span class="badge-status @(item.IsActive ? "badge-status--completed" : "badge-status--cancelled")">
+                                    @(item.IsActive ? "Active" : "Inactive")
+                                </span>
+                            </td>
+                            <td class="text-end text-nowrap">
+                                <a class="btn btn-sm btn-outline-secondary" href="@Url.Action("Details", new { id = item.CustomerId })">View</a>
+                                <a class="btn btn-sm btn-outline-secondary" href="@Url.Action("Edit", new { id = item.CustomerId })">Edit</a>
+                                @using (Html.BeginForm("ToggleStatus", "Customer", FormMethod.Post, new { @class = "d-inline" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("id", item.CustomerId)
+                                    @Html.Hidden("search", Model.Search)
+                                    @Html.Hidden("status", Model.Status)
+                                    <button class="btn btn-sm @(item.IsActive ? "btn-outline-danger" : "btn-outline-success")"
+                                            type="submit"
+                                            onclick="return confirm('@(item.IsActive ? "Deactivate this customer? They will be hidden from new transactions." : "Reactivate this customer?")');">
+                                        @(item.IsActive ? "Deactivate" : "Reactivate")
+                                    </button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

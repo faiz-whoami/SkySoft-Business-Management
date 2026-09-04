@@ -1,0 +1,25 @@
+@model business_managment_system.Models.CustomerFormViewModel
+@{
+    ViewBag.Title = "New customer";
+}
+
+<div class="page-toolbar">
+    <div>
+        <p class="dash-kicker">Customers</p>
+        <h2 class="dash-title mb-0">New customer</h2>
+        <p class="page-lead mb-0">Name is required. Email, phone, and address are optional.</p>
+    </div>
+    <a class="btn btn-outline-secondary" href="@Url.Action("Index")">Back to list</a>
+</div>
+
+<div class="card-panel form-panel">
+    @using (Html.BeginForm("Create", "Customer", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Partial("_Form", Model)
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Save customer</button>
+            <a class="btn btn-outline-secondary" href="@Url.Action("Index")">Cancel</a>
+        </div>
+    }
+</div>
