@@ -1,0 +1,104 @@
+@model business_managment_system.Models.EndUserListViewModel
+@{
+    ViewBag.Title = "End Users";
+}
+
+<div class="page-toolbar">
+    <div>
+        <p class="dash-kicker">Administration</p>
+        <h2 class="dash-title mb-0">End Users</h2>
+        <p class="page-lead mb-0">Sign-in accounts for SkySoft. Passwords are stored as hashes. You cannot deactivate your own account, and at least one active administrator must remain.</p>
+    </div>
+    <a class="btn btn-primary" href="@Url.Action("Create")"><i class="bi bi-plus-lg"></i> New user</a>
+</div>
+
+<div class="card-panel mb-3">
+    @using (Html.BeginForm("Index", "User", FormMethod.Get, new { @class = "filter-bar" }))
+    {
+        <div class="filter-field">
+            <label class="form-label" for="search">Search</label>
+            @Html.TextBoxFor(m => m.Search, new { @class = "form-control", id = "search", placeholder = "Name or username…" })
+        </div>
+        <div class="filter-field filter-field--status">
+            <label class="form-label" for="status">Status</label>
+            <select class="form-select" id="status" name="status">
+                <option value="active" @(Model.Status == "active" ? "selected" : null)>Active</option>
+                <option value="inactive" @(Model.Status == "inactive" ? "selected" : null)>Inactive</option>
+                <option value="all" @(Model.Status == "all" ? "selected" : null)>All</option>
+            </select>
+        </div>
+        <div class="filter-actions">
+            <button class="btn btn-primary" type="submit">Apply</button>
+            <a class="btn btn-outline-secondary" href="@Url.Action("Index")">Reset</a>
+        </div>
+    }
+</div>
+
+<div class="card-panel">
+    @if (Model.Items != null && Model.Items.Count > 0)
+    {
+        <div class="panel-head">
+            <p class="page-lead mb-0">@(Model.Items.Count) user@(Model.Items.Count == 1 ? "" : "s")</p>
+        </div>
+    }
+    @if (Model.Items == null || Model.Items.Count == 0)
+    {
+        <div class="table-empty">No users match this filter.</div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table data-table mb-0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        var isSelf = item.EndUserId == Model.CurrentUserId;
+                        <tr>
+                            <td>
+                                <a class="table-link" href="@Url.Action("Details", new { id = item.EndUserId })">@item.FullName</a>
+                                @if (isSelf)
+                                {
+                                    <span class="badge-status badge-status--pending">You</span>
+                                }
+                            </td>
+                            <td class="mono">@item.Username</td>
+                            <td>@item.RoleName</td>
+                            <td>
+                                <span class="badge-status @(item.IsActive ? "badge-status--completed" : "badge-status--cancelled")">
+                                    @(item.IsActive ? "Active" : "Inactive")
+                                </span>
+                            </td>
+                            <td class="text-end text-nowrap">
+                                <a class="btn btn-sm btn-outline-secondary" href="@Url.Action("Details", new { id = item.EndUserId })">View</a>
+                                <a class="btn btn-sm btn-outline-secondary" href="@Url.Action("Edit", new { id = item.EndUserId })">Edit</a>
+                                @if (!isSelf)
+                                {
+                                    <form action="@Url.Action("ToggleStatus")" method="post" class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        @Html.Hidden("id", item.EndUserId)
+                                        @Html.Hidden("search", Model.Search)
+                                        @Html.Hidden("status", Model.Status)
+                                        <button class="btn btn-sm @(item.IsActive ? "btn-outline-danger" : "btn-outline-success")"
+                                                type="submit"
+                                                onclick="return confirm('@(item.IsActive ? "Deactivate this user? They will not be able to sign in." : "Reactivate this user?")');">
+                                            @(item.IsActive ? "Deactivate" : "Reactivate")
+                                        </button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

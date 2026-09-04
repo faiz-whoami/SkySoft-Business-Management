@@ -12,7 +12,7 @@
     <AssemblyName>business_managment_system</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>false</Use64BitIISExpress>
     <IISExpressSSLPort>44355</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -93,16 +93,41 @@
     <Compile Include="Data\DashboardRepository.cs" />
     <Compile Include="Data\DbConnectionFactory.cs" />
     <Compile Include="Data\EndUserRepository.cs" />
+    <Compile Include="Data\ProductRepository.cs" />
+    <Compile Include="Data\ReportRepository.cs" />
+    <Compile Include="Data\SupplierRepository.cs" />
+    <Compile Include="Data\TransactionRepository.cs" />
+    <Compile Include="Data\VendorRepository.cs" />
+    <Compile Include="Filters\AntiForgeryExceptionAttribute.cs" />
     <Compile Include="Filters\AppAuthorizeAttribute.cs" />
+    <Compile Include="Helpers\AntiForgeryCookie.cs" />
     <Compile Include="Helpers\PasswordHasher.cs" />
     <Compile Include="Helpers\SessionKeys.cs" />
+    <Compile Include="Helpers\TransactionNames.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\CustomerViewModels.cs" />
     <Compile Include="Models\DashboardViewModel.cs" />
     <Compile Include="Models\EndUser.cs" />
+    <Compile Include="Models\EndUserViewModels.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\PartyTransactionRow.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ProductViewModels.cs" />
+    <Compile Include="Models\ReportViewModels.cs" />
+    <Compile Include="Models\Supplier.cs" />
+    <Compile Include="Models\SupplierViewModels.cs" />
+    <Compile Include="Models\TransactionViewModels.cs" />
+    <Compile Include="Models\Vendor.cs" />
+    <Compile Include="Models\VendorViewModels.cs" />
     <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\CustomerService.cs" />
+    <Compile Include="Services\EndUserService.cs" />
+    <Compile Include="Services\ProductService.cs" />
+    <Compile Include="Services\ReportService.cs" />
+    <Compile Include="Services\CrystalPdfService.cs" />
+    <Compile Include="Services\SupplierService.cs" />
+    <Compile Include="Services\TransactionService.cs" />
+    <Compile Include="Services\VendorService.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -116,6 +141,7 @@
     <Content Include="Scripts\lib\jquery\jquery.min.js" />
     <Content Include="Scripts\lib\jquery-validation\jquery.validate.min.js" />
     <Content Include="Scripts\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\transactions.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -133,6 +159,30 @@
     <Content Include="Views\Customer\Edit.cshtml" />
     <Content Include="Views\Customer\Details.cshtml" />
     <Content Include="Views\Customer\_Form.cshtml" />
+    <Content Include="Views\Supplier\Index.cshtml" />
+    <Content Include="Views\Supplier\Create.cshtml" />
+    <Content Include="Views\Supplier\Edit.cshtml" />
+    <Content Include="Views\Supplier\Details.cshtml" />
+    <Content Include="Views\Supplier\_Form.cshtml" />
+    <Content Include="Views\Vendor\Index.cshtml" />
+    <Content Include="Views\Vendor\Create.cshtml" />
+    <Content Include="Views\Vendor\Edit.cshtml" />
+    <Content Include="Views\Vendor\Details.cshtml" />
+    <Content Include="Views\Vendor\_Form.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\Create.cshtml" />
+    <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\Product\Details.cshtml" />
+    <Content Include="Views\Product\_Form.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\User\_Form.cshtml" />
+    <Content Include="Views\Transaction\Index.cshtml" />
+    <Content Include="Views\Transaction\Create.cshtml" />
+    <Content Include="Views\Transaction\Details.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reports\" />

@@ -1,0 +1,78 @@
+@model business_managment_system.Models.EndUserDetailsViewModel
+@{
+    var user = Model.User;
+    ViewBag.Title = user.FullName;
+}
+
+<div class="page-toolbar">
+    <div>
+        <p class="dash-kicker">End Users</p>
+        <h2 class="dash-title mb-0">@user.FullName</h2>
+        <p class="page-lead mb-0">
+            <span class="badge-status @(user.IsActive ? "badge-status--completed" : "badge-status--cancelled")">
+                @(user.IsActive ? "Active" : "Inactive")
+            </span>
+            @if (Model.IsSelf)
+            {
+                <span class="badge-status badge-status--pending">You</span>
+            }
+        </p>
+    </div>
+    <div class="toolbar-actions">
+        <a class="btn btn-outline-secondary" href="@Url.Action("Index")">Back to list</a>
+        <a class="btn btn-primary" href="@Url.Action("Edit", new { id = user.EndUserId })">Edit</a>
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-lg-5">
+        <div class="card-panel h-100">
+            <h2 class="h6 text-uppercase text-muted mb-3">Account</h2>
+            <dl class="detail-list">
+                <dt>Username</dt>
+                <dd class="mono">@user.Username</dd>
+                <dt>Role</dt>
+                <dd>@user.RoleName</dd>
+                <dt>Created</dt>
+                <dd>@user.CreatedDate.ToString("dd MMM yyyy")</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card-panel h-100">
+            <h2 class="h6 text-uppercase text-muted mb-3">Transactions recorded</h2>
+            @if (Model.Transactions == null || Model.Transactions.Count == 0)
+            {
+                <div class="table-empty">This user has not recorded a transaction yet.</div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table data-table mb-0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th class="text-end">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var row in Model.Transactions)
+                            {
+                                <tr>
+                                    <td class="mono">#@row.TransactionId</td>
+                                    <td>@row.TransactionDate.ToString("dd MMM yyyy")</td>
+                                    <td><span class="badge-type badge-type--@((row.TransactionType ?? "").ToLowerInvariant())">@row.TransactionType</span></td>
+                                    <td><span class="badge-status badge-status--@((row.Status ?? "").ToLowerInvariant())">@row.Status</span></td>
+                                    <td class="text-end fw-semibold">$@row.TotalAmount.ToString("N2")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

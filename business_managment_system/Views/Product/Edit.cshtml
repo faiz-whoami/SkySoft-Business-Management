@@ -1,0 +1,26 @@
+@model business_managment_system.Models.ProductFormViewModel
+@{
+    ViewBag.Title = "Edit product";
+}
+
+<div class="page-toolbar">
+    <div>
+        <p class="dash-kicker">Products</p>
+        <h2 class="dash-title mb-0">Edit product</h2>
+        <p class="page-lead mb-0">Price changes apply to new transaction lines. Existing lines keep the price that was recorded at the time.</p>
+    </div>
+    <a class="btn btn-outline-secondary" href="@Url.Action("Details", new { id = Model.ProductId })">Cancel</a>
+</div>
+
+<div class="card-panel form-panel">
+    @using (Html.BeginForm("Edit", "Product", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.ProductId)
+        @Html.Partial("_Form", Model)
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Save changes</button>
+            <a class="btn btn-outline-secondary" href="@Url.Action("Details", new { id = Model.ProductId })">Cancel</a>
+        </div>
+    }
+</div>

@@ -1,0 +1,42 @@
+@model business_managment_system.Models.EndUserFormViewModel
+
+<div class="mb-3">
+    @Html.LabelFor(m => m.FullName, new { @class = "form-label" })
+    @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", autocomplete = "name", maxlength = "150" })
+    @Html.ValidationMessageFor(m => m.FullName, "", new { @class = "field-validation-error" })
+</div>
+<div class="mb-3">
+    @Html.LabelFor(m => m.Username, new { @class = "form-label" })
+    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", autocomplete = "username", maxlength = "50" })
+    @Html.ValidationMessageFor(m => m.Username, "", new { @class = "field-validation-error" })
+</div>
+<div class="mb-3">
+    @Html.LabelFor(m => m.RoleId, new { @class = "form-label" })
+    @if (Model.IsSelf)
+    {
+        @Html.HiddenFor(m => m.RoleId)
+        <input class="form-control" type="text" value="@Model.RoleName" disabled="disabled" />
+        <p class="page-lead mb-0 mt-1">You cannot change your own role.</p>
+    }
+    else
+    {
+        @Html.DropDownListFor(m => m.RoleId, Model.Roles, "Select a role", new { @class = "form-select" })
+        @Html.ValidationMessageFor(m => m.RoleId, "", new { @class = "field-validation-error" })
+    }
+</div>
+<div class="row">
+    <div class="col-md-6 mb-3">
+        @Html.LabelFor(m => m.Password, new { @class = "form-label" })
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control", autocomplete = "new-password" })
+        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "field-validation-error" })
+        @if (!Model.IsNew)
+        {
+            <p class="page-lead mb-0 mt-1">Leave blank to keep the current password.</p>
+        }
+    </div>
+    <div class="col-md-6 mb-3">
+        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "form-label" })
+        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", autocomplete = "new-password" })
+        @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "field-validation-error" })
+    </div>
+</div>

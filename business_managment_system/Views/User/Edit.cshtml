@@ -1,0 +1,28 @@
+@model business_managment_system.Models.EndUserFormViewModel
+@{
+    ViewBag.Title = "Edit user";
+}
+
+<div class="page-toolbar">
+    <div>
+        <p class="dash-kicker">End Users</p>
+        <h2 class="dash-title mb-0">Edit user</h2>
+        <p class="page-lead mb-0">Leave the password fields blank to keep the existing password. A new password is hashed before it is saved.</p>
+    </div>
+    <a class="btn btn-outline-secondary" href="@Url.Action("Details", new { id = Model.EndUserId })">Cancel</a>
+</div>
+
+<div class="card-panel form-panel">
+    @using (Html.BeginForm("Edit", "User", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.EndUserId)
+        @Html.HiddenFor(m => m.IsNew)
+        @Html.HiddenFor(m => m.IsSelf)
+        @Html.Partial("_Form", Model)
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Save changes</button>
+            <a class="btn btn-outline-secondary" href="@Url.Action("Details", new { id = Model.EndUserId })">Cancel</a>
+        </div>
+    }
+</div>

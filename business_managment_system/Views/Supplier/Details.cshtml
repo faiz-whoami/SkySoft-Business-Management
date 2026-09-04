@@ -1,0 +1,80 @@
+@model business_managment_system.Models.SupplierDetailsViewModel
+@{
+    var supplier = Model.Supplier;
+    var canManage = User.IsInRole("Admin");
+    ViewBag.Title = supplier.Name;
+}
+
+<div class="page-toolbar">
+    <div>
+        <p class="dash-kicker">Suppliers</p>
+        <h2 class="dash-title mb-0">@supplier.Name</h2>
+        <p class="page-lead mb-0">
+            <span class="badge-status @(supplier.IsActive ? "badge-status--completed" : "badge-status--cancelled")">
+                @(supplier.IsActive ? "Active" : "Inactive")
+            </span>
+        </p>
+    </div>
+    <div class="toolbar-actions">
+        <a class="btn btn-outline-secondary" href="@Url.Action("Index")">Back to list</a>
+        @if (canManage)
+        {
+            <a class="btn btn-primary" href="@Url.Action("Edit", new { id = supplier.SupplierId })">Edit</a>
+        }
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-lg-5">
+        <div class="card-panel h-100">
+            <h2 class="h6 text-uppercase text-muted mb-3">Contact</h2>
+            <dl class="detail-list">
+                <dt>Email</dt>
+                <dd>@(string.IsNullOrWhiteSpace(supplier.Email) ? "—" : supplier.Email)</dd>
+                <dt>Phone</dt>
+                <dd>@(string.IsNullOrWhiteSpace(supplier.Phone) ? "—" : supplier.Phone)</dd>
+                <dt>Address</dt>
+                <dd>@(string.IsNullOrWhiteSpace(supplier.Address) ? "—" : supplier.Address)</dd>
+                <dt>Created</dt>
+                <dd>@supplier.CreatedDate.ToString("dd MMM yyyy")</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card-panel h-100">
+            <h2 class="h6 text-uppercase text-muted mb-3">Purchases</h2>
+            @if (Model.Transactions == null || Model.Transactions.Count == 0)
+            {
+                <div class="table-empty">No purchases have been recorded for this supplier yet.</div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table data-table mb-0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th class="text-end">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var row in Model.Transactions)
+                            {
+                                <tr>
+                                    <td class="mono">#@row.TransactionId</td>
+                                    <td>@row.TransactionDate.ToString("dd MMM yyyy")</td>
+                                    <td><span class="badge-type badge-type--@((row.TransactionType ?? "").ToLowerInvariant())">@row.TransactionType</span></td>
+                                    <td><span class="badge-status badge-status--@((row.Status ?? "").ToLowerInvariant())">@row.Status</span></td>
+                                    <td class="text-end fw-semibold">$@row.TotalAmount.ToString("N2")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

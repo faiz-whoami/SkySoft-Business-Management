@@ -458,3 +458,12 @@ body {
         align-items: stretch;
     }
 }
+
+#txn-grid .txn-qty,
+#txn-grid .txn-price {
+    min-width: 5.5rem;
+}
+
+.report-card .dash-kicker {
+    margin-bottom: 0.35rem;
+}

@@ -1,0 +1,21 @@
+@model business_managment_system.Models.ProductFormViewModel
+
+<div class="mb-3">
+    @Html.LabelFor(m => m.Sku, new { @class = "form-label" })
+    @Html.TextBoxFor(m => m.Sku, new { @class = "form-control", maxlength = "50", placeholder = "SKU-1092" })
+    @Html.ValidationMessageFor(m => m.Sku, "", new { @class = "field-validation-error" })
+    <p class="page-lead mb-0 mt-1">Optional. Must be unique when provided.</p>
+</div>
+<div class="mb-3">
+    @Html.LabelFor(m => m.ProductName, new { @class = "form-label" })
+    @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control", maxlength = "150" })
+    @Html.ValidationMessageFor(m => m.ProductName, "", new { @class = "field-validation-error" })
+</div>
+<div class="mb-3">
+    @Html.LabelFor(m => m.UnitPrice, new { @class = "form-label" })
+    <div class="input-group" style="max-width: 220px;">
+        <span class="input-group-text">$</span>
+        @Html.TextBoxFor(m => m.UnitPrice, "{0:0.00}", new { @class = "form-control", inputmode = "decimal" })
+    </div>
+    @Html.ValidationMessageFor(m => m.UnitPrice, "", new { @class = "field-validation-error" })
+</div>

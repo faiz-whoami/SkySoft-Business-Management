@@ -58,6 +58,7 @@ namespace business_managment_system.Controllers
             }
 
             SignIn(result.User);
+            AntiForgeryCookie.Expire(HttpContext);
 
             if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
             {
@@ -75,6 +76,7 @@ namespace business_managment_system.Controllers
             FormsAuthentication.SignOut();
             Session.Clear();
             Session.Abandon();
+            AntiForgeryCookie.Expire(HttpContext);
             return RedirectToAction("Login");
         }
 

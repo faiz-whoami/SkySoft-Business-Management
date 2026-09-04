@@ -1,0 +1,26 @@
+@model business_managment_system.Models.VendorFormViewModel
+@{
+    ViewBag.Title = "Edit vendor";
+}
+
+<div class="page-toolbar">
+    <div>
+        <p class="dash-kicker">Vendors</p>
+        <h2 class="dash-title mb-0">Edit vendor</h2>
+        <p class="page-lead mb-0">Changes are saved to the master record. Past service transactions keep their original party on the transaction.</p>
+    </div>
+    <a class="btn btn-outline-secondary" href="@Url.Action("Details", new { id = Model.VendorId })">Cancel</a>
+</div>
+
+<div class="card-panel form-panel">
+    @using (Html.BeginForm("Edit", "Vendor", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.VendorId)
+        @Html.Partial("_Form", Model)
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Save changes</button>
+            <a class="btn btn-outline-secondary" href="@Url.Action("Details", new { id = Model.VendorId })">Cancel</a>
+        </div>
+    }
+</div>

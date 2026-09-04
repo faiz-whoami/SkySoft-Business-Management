@@ -1,0 +1,94 @@
+@model business_managment_system.Models.TransactionListViewModel
+@{
+    ViewBag.Title = "Transactions";
+}
+
+<div class="page-toolbar">
+    <div>
+        <p class="dash-kicker">Operations</p>
+        <h2 class="dash-title mb-0">Transactions</h2>
+        <p class="page-lead mb-0">Sales, purchases, and services. New records start as Pending.</p>
+    </div>
+    <a class="btn btn-primary" href="@Url.Action("Create")"><i class="bi bi-plus-lg"></i> New transaction</a>
+</div>
+
+<div class="card-panel mb-3">
+    @using (Html.BeginForm("Index", "Transaction", FormMethod.Get, new { @class = "filter-bar" }))
+    {
+        <div class="filter-field">
+            <label class="form-label" for="search">Search</label>
+            @Html.TextBoxFor(m => m.Search, new { @class = "form-control", id = "search", placeholder = "ID or party name…" })
+        </div>
+        <div class="filter-field filter-field--status">
+            <label class="form-label" for="type">Type</label>
+            <select class="form-select" id="type" name="type">
+                <option value="">All types</option>
+                @foreach (var item in Model.Types)
+                {
+                    <option value="@item.Name" @(string.Equals(Model.Type, item.Name, StringComparison.OrdinalIgnoreCase) ? "selected" : null)>@item.Name</option>
+                }
+            </select>
+        </div>
+        <div class="filter-field filter-field--status">
+            <label class="form-label" for="status">Status</label>
+            <select class="form-select" id="status" name="status">
+                <option value="">All statuses</option>
+                @foreach (var item in Model.Statuses)
+                {
+                    <option value="@item.Name" @(string.Equals(Model.Status, item.Name, StringComparison.OrdinalIgnoreCase) ? "selected" : null)>@item.Name</option>
+                }
+            </select>
+        </div>
+        <div class="filter-actions">
+            <button class="btn btn-primary" type="submit">Apply</button>
+            <a class="btn btn-outline-secondary" href="@Url.Action("Index")">Reset</a>
+        </div>
+    }
+</div>
+
+<div class="card-panel">
+    @if (Model.Items != null && Model.Items.Count > 0)
+    {
+        <div class="panel-head">
+            <p class="page-lead mb-0">@(Model.Items.Count) transaction@(Model.Items.Count == 1 ? "" : "s")</p>
+        </div>
+    }
+    @if (Model.Items == null || Model.Items.Count == 0)
+    {
+        <div class="table-empty">No transactions match this filter.</div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table data-table mb-0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Party</th>
+                        <th>Status</th>
+                        <th>Recorded by</th>
+                        <th class="text-end">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td class="mono">
+                                <a class="table-link" href="@Url.Action("Details", new { id = item.TransactionId })">#@item.TransactionId</a>
+                            </td>
+                            <td>@item.TransactionDate.ToString("dd MMM yyyy")</td>
+                            <td><span class="badge-type badge-type--@((item.TransactionType ?? "").ToLowerInvariant())">@item.TransactionType</span></td>
+                            <td>@item.PartyName</td>
+                            <td><span class="badge-status badge-status--@((item.Status ?? "").ToLowerInvariant())">@item.Status</span></td>
+                            <td>@item.RecordedBy</td>
+                            <td class="text-end fw-semibold">$@item.TotalAmount.ToString("N2")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>

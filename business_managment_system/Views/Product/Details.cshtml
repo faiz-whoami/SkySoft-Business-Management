@@ -1,0 +1,80 @@
+@model business_managment_system.Models.ProductDetailsViewModel
+@{
+    var product = Model.Product;
+    var canManage = User.IsInRole("Admin");
+    ViewBag.Title = product.ProductName;
+}
+
+<div class="page-toolbar">
+    <div>
+        <p class="dash-kicker">Products</p>
+        <h2 class="dash-title mb-0">@product.ProductName</h2>
+        <p class="page-lead mb-0">
+            <span class="badge-status @(product.IsActive ? "badge-status--completed" : "badge-status--cancelled")">
+                @(product.IsActive ? "Active" : "Inactive")
+            </span>
+        </p>
+    </div>
+    <div class="toolbar-actions">
+        <a class="btn btn-outline-secondary" href="@Url.Action("Index")">Back to list</a>
+        @if (canManage)
+        {
+            <a class="btn btn-primary" href="@Url.Action("Edit", new { id = product.ProductId })">Edit</a>
+        }
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-lg-5">
+        <div class="card-panel h-100">
+            <h2 class="h6 text-uppercase text-muted mb-3">Catalogue</h2>
+            <dl class="detail-list">
+                <dt>SKU</dt>
+                <dd class="mono">@(string.IsNullOrWhiteSpace(product.Sku) ? "—" : product.Sku)</dd>
+                <dt>Unit price</dt>
+                <dd>$@product.UnitPrice.ToString("N2")</dd>
+                <dt>Created</dt>
+                <dd>@product.CreatedDate.ToString("dd MMM yyyy")</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="card-panel h-100">
+            <h2 class="h6 text-uppercase text-muted mb-3">Used on transactions</h2>
+            @if (Model.Usages == null || Model.Usages.Count == 0)
+            {
+                <div class="table-empty">This product has not been used on a transaction yet.</div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table data-table mb-0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th class="text-end">Qty</th>
+                                <th class="text-end">Line total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var row in Model.Usages)
+                            {
+                                <tr>
+                                    <td class="mono">#@row.TransactionId</td>
+                                    <td>@row.TransactionDate.ToString("dd MMM yyyy")</td>
+                                    <td><span class="badge-type badge-type--@((row.TransactionType ?? "").ToLowerInvariant())">@row.TransactionType</span></td>
+                                    <td><span class="badge-status badge-status--@((row.Status ?? "").ToLowerInvariant())">@row.Status</span></td>
+                                    <td class="text-end">@row.Quantity</td>
+                                    <td class="text-end fw-semibold">$@row.LineTotal.ToString("N2")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -1,0 +1,87 @@
+@model business_managment_system.Models.TransactionDetailsViewModel
+@{
+    ViewBag.Title = "Transaction #" + Model.TransactionId;
+}
+
+<div class="page-toolbar">
+    <div>
+        <p class="dash-kicker">Transactions</p>
+        <h2 class="dash-title mb-0">Transaction #@Model.TransactionId</h2>
+        <p class="page-lead mb-0">
+            <span class="badge-type badge-type--@((Model.TransactionType ?? "").ToLowerInvariant())">@Model.TransactionType</span>
+            <span class="badge-status badge-status--@((Model.Status ?? "").ToLowerInvariant())">@Model.Status</span>
+        </p>
+    </div>
+    <div class="toolbar-actions">
+        <a class="btn btn-outline-secondary" href="@Url.Action("Index")">Back to list</a>
+        <a class="btn btn-outline-secondary" href="@Url.Action("TransactionDetail", "Report", new { id = Model.TransactionId })"><i class="bi bi-file-earmark-pdf"></i> PDF</a>
+        @if (Model.CanChangeStatus)
+        {
+            <form action="@Url.Action("SetStatus")" method="post" class="d-inline">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@Model.TransactionId" />
+                <input type="hidden" name="statusName" value="Completed" />
+                <button class="btn btn-primary" type="submit" onclick="return confirm('Mark this transaction as Completed?');">Complete</button>
+            </form>
+            <form action="@Url.Action("SetStatus")" method="post" class="d-inline">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@Model.TransactionId" />
+                <input type="hidden" name="statusName" value="Cancelled" />
+                <button class="btn btn-outline-danger" type="submit" onclick="return confirm('Cancel this transaction?');">Cancel</button>
+            </form>
+        }
+    </div>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-lg-4">
+        <div class="card-panel h-100">
+            <h2 class="h6 text-uppercase text-muted mb-3">Header</h2>
+            <dl class="detail-list">
+                <dt>Party</dt>
+                <dd>@Model.PartyName</dd>
+                <dt>Date</dt>
+                <dd>@Model.TransactionDate.ToString("dd MMM yyyy")</dd>
+                <dt>Recorded by</dt>
+                <dd>@Model.RecordedBy</dd>
+                <dt>Total</dt>
+                <dd class="fw-semibold">$@Model.TotalAmount.ToString("N2")</dd>
+            </dl>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="card-panel h-100">
+            <h2 class="h6 text-uppercase text-muted mb-3">Line items</h2>
+            @if (Model.Lines == null || Model.Lines.Count == 0)
+            {
+                <div class="table-empty">This transaction has no line items.</div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table data-table mb-0">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th class="text-end">Qty</th>
+                                <th class="text-end">Unit price</th>
+                                <th class="text-end">Line total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var line in Model.Lines)
+                            {
+                                <tr>
+                                    <td>@line.Description</td>
+                                    <td class="text-end">@line.Quantity</td>
+                                    <td class="text-end">$@line.UnitPrice.ToString("N2")</td>
+                                    <td class="text-end fw-semibold">$@line.LineTotal.ToString("N2")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</div>

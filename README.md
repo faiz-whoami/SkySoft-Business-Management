@@ -58,6 +58,16 @@ $sqlcmd = "C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\180\Tools\Binn\
 
 If your instance name is different, change the `Server=` value in `business_managment_system\Web.config` as well.
 
+## Crystal Reports (PDF)
+
+The Reports page uses **SAP Crystal Reports v13** (`13.0.4000.0`) and streams PDFs from:
+
+- `sp_Report_PartyDirectory` — Business Partner Directory
+- `sp_Report_TransactionDetail` — Transaction Detail Statement
+- `sp_Report_MonthlySummary` — Monthly Transaction Summary
+
+Install **SAP Crystal Reports, version for Visual Studio** (the **Install Package** / CRforVS `.exe`, not only the redistributable). Close Visual Studio, run the installer **as Administrator**, then reopen the solution. Use **32-bit IIS Express** (already set in the project) so the Crystal native libraries load.
+
 After F5 you should be sent to the login page.
 
 ## Login

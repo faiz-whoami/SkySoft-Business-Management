@@ -1,0 +1,26 @@
+@model business_managment_system.Models.SupplierFormViewModel
+@{
+    ViewBag.Title = "Edit supplier";
+}
+
+<div class="page-toolbar">
+    <div>
+        <p class="dash-kicker">Suppliers</p>
+        <h2 class="dash-title mb-0">Edit supplier</h2>
+        <p class="page-lead mb-0">Changes are saved to the master record. Past purchases keep their original party on the transaction.</p>
+    </div>
+    <a class="btn btn-outline-secondary" href="@Url.Action("Details", new { id = Model.SupplierId })">Cancel</a>
+</div>
+
+<div class="card-panel form-panel">
+    @using (Html.BeginForm("Edit", "Supplier", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.SupplierId)
+        @Html.Partial("_Form", Model)
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Save changes</button>
+            <a class="btn btn-outline-secondary" href="@Url.Action("Details", new { id = Model.SupplierId })">Cancel</a>
+        </div>
+    }
+</div>

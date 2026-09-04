@@ -1,0 +1,25 @@
+@model business_managment_system.Models.ProductFormViewModel
+@{
+    ViewBag.Title = "New product";
+}
+
+<div class="page-toolbar">
+    <div>
+        <p class="dash-kicker">Products</p>
+        <h2 class="dash-title mb-0">New product</h2>
+        <p class="page-lead mb-0">Name and unit price are required. SKU is optional but must be unique.</p>
+    </div>
+    <a class="btn btn-outline-secondary" href="@Url.Action("Index")">Back to list</a>
+</div>
+
+<div class="card-panel form-panel">
+    @using (Html.BeginForm("Create", "Product", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.Partial("_Form", Model)
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Save product</button>
+            <a class="btn btn-outline-secondary" href="@Url.Action("Index")">Cancel</a>
+        </div>
+    }
+</div>

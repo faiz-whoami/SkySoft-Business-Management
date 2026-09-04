@@ -1,0 +1,26 @@
+@model business_managment_system.Models.EndUserFormViewModel
+@{
+    ViewBag.Title = "New user";
+}
+
+<div class="page-toolbar">
+    <div>
+        <p class="dash-kicker">End Users</p>
+        <h2 class="dash-title mb-0">New user</h2>
+        <p class="page-lead mb-0">The password is hashed before it is stored. It cannot be read back later.</p>
+    </div>
+    <a class="btn btn-outline-secondary" href="@Url.Action("Index")">Back to list</a>
+</div>
+
+<div class="card-panel form-panel">
+    @using (Html.BeginForm("Create", "User", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.IsNew)
+        @Html.Partial("_Form", Model)
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">Save user</button>
+            <a class="btn btn-outline-secondary" href="@Url.Action("Index")">Cancel</a>
+        </div>
+    }
+</div>
