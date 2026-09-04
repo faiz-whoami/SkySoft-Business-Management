@@ -1,0 +1,9 @@
+@{
+    ViewBag.Title = "Error";
+}
+<div class="empty-state">
+    <i class="bi bi-exclamation-triangle"></i>
+    <h2>Something went wrong</h2>
+    <p>Please try again. If the problem continues, check the Visual Studio Output window.</p>
+    <a class="btn btn-primary" href="@Url.Action("Index", "Dashboard")">Back to Dashboard</a>
+</div>

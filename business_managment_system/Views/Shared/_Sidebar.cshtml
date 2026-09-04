@@ -1,0 +1,23 @@
+@{
+    var current = (ViewContext.RouteData.Values["controller"] ?? "").ToString();
+    Func<string, string> navClass = name => current.Equals(name, System.StringComparison.OrdinalIgnoreCase) ? "nav-link active" : "nav-link";
+}
+<aside class="app-sidebar">
+    <div class="brand">
+        <span class="brand-mark">S</span>
+        <div>
+            <div class="brand-name">SkySoft</div>
+            <div class="brand-sub">Business Management</div>
+        </div>
+    </div>
+    <nav class="sidebar-nav">
+        <a class="@navClass("Dashboard")" href="@Url.Action("Index", "Dashboard")"><i class="bi bi-speedometer2"></i> Dashboard</a>
+        <a class="@navClass("Customer")" href="@Url.Action("Index", "Customer")"><i class="bi bi-people"></i> Customers</a>
+        <a class="@navClass("Supplier")" href="@Url.Action("Index", "Supplier")"><i class="bi bi-truck"></i> Suppliers</a>
+        <a class="@navClass("Vendor")" href="@Url.Action("Index", "Vendor")"><i class="bi bi-wrench-adjustable"></i> Vendors</a>
+        <a class="@navClass("Product")" href="@Url.Action("Index", "Product")"><i class="bi bi-box-seam"></i> Products</a>
+        <a class="@navClass("Transaction")" href="@Url.Action("Index", "Transaction")"><i class="bi bi-receipt"></i> Transactions</a>
+        <a class="@navClass("Report")" href="@Url.Action("Index", "Report")"><i class="bi bi-file-earmark-bar-graph"></i> Reports</a>
+        <a class="@navClass("User")" href="@Url.Action("Index", "User")"><i class="bi bi-person-gear"></i> End Users</a>
+    </nav>
+</aside>

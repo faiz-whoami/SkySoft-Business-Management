@@ -1,0 +1,28 @@
+@{
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+    ViewBag.Title = "Sign in";
+}
+<div class="login-wrap">
+    <div class="login-card">
+        <div class="brand login-brand">
+            <span class="brand-mark">S</span>
+            <div>
+                <div class="brand-name">SkySoft Business Management</div>
+                <div class="brand-sub">Sign in to continue</div>
+            </div>
+        </div>
+        <form method="post" action="@Url.Action("Login", "Account")">
+            @Html.AntiForgeryToken()
+            <div class="mb-3">
+                <label class="form-label" for="username">Username</label>
+                <input class="form-control" id="username" name="username" type="text" autocomplete="username" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="password">Password</label>
+                <input class="form-control" id="password" name="password" type="password" autocomplete="current-password" />
+            </div>
+            <button class="btn btn-primary w-100" type="submit" disabled>Sign in (coming next)</button>
+            <p class="form-hint">Login will be enabled after we add authentication.</p>
+        </form>
+    </div>
+</div>

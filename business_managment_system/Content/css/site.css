@@ -1,0 +1,208 @@
+:root {
+    --sidebar-bg: #0f172a;
+    --sidebar-text: #cbd5e1;
+    --sidebar-active: #38bdf8;
+    --header-bg: #ffffff;
+    --page-bg: #f1f5f9;
+    --text: #0f172a;
+    --muted: #64748b;
+    --card-border: #e2e8f0;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    color: var(--text);
+    background: var(--page-bg);
+}
+
+.app-shell {
+    display: flex;
+    min-height: 100vh;
+}
+
+.app-sidebar {
+    width: 250px;
+    background: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    padding: 1.25rem 0.75rem;
+    flex-shrink: 0;
+}
+
+.brand {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.25rem 0.75rem 1.25rem;
+}
+
+.brand-mark {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: #0284c7;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.brand-name {
+    color: #fff;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.brand-sub {
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.sidebar-nav .nav-link {
+    color: var(--sidebar-text);
+    border-radius: 8px;
+    padding: 0.55rem 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+}
+
+.sidebar-nav .nav-link:hover {
+    background: #1e293b;
+    color: #fff;
+}
+
+.sidebar-nav .nav-link.active {
+    background: #1e293b;
+    color: var(--sidebar-active);
+    font-weight: 600;
+}
+
+.app-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.app-header {
+    background: var(--header-bg);
+    border-bottom: 1px solid var(--card-border);
+    padding: 0.9rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.app-header h1 {
+    font-size: 1.15rem;
+    margin: 0;
+}
+
+.app-header-user {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.user-name {
+    font-weight: 600;
+}
+
+.user-role {
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+.app-content {
+    padding: 1.5rem;
+}
+
+.page-lead {
+    color: var(--muted);
+}
+
+.summary-card, .card-panel {
+    background: #fff;
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+}
+
+.summary-label {
+    color: var(--muted);
+    font-size: 0.85rem;
+}
+
+.summary-value {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.empty-state {
+    background: #fff;
+    border: 1px dashed var(--card-border);
+    border-radius: 12px;
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: var(--muted);
+}
+
+.empty-state i {
+    font-size: 2rem;
+    color: #0284c7;
+}
+
+.login-body {
+    background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+}
+
+.login-wrap {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.login-card {
+    background: #fff;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+}
+
+.login-brand {
+    margin-bottom: 1.5rem;
+    padding: 0;
+}
+
+.login-brand .brand-name,
+.login-brand .brand-sub {
+    color: var(--text);
+}
+
+.form-hint {
+    margin-top: 0.75rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #0284c7;
+    border-color: #0284c7;
+}

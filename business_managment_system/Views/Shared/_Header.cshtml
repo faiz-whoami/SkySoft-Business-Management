@@ -1,0 +1,10 @@
+<header class="app-header">
+    <div class="app-header-title">
+        <h1>@(ViewBag.Title ?? "Dashboard")</h1>
+    </div>
+    <div class="app-header-user">
+        <span class="user-name">Guest</span>
+        <span class="user-role">Not signed in</span>
+        <a class="btn btn-sm btn-outline-secondary" href="@Url.Action("Login", "Account")">Sign in</a>
+    </div>
+</header>

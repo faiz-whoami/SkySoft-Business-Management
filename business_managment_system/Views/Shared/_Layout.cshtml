@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@(ViewBag.Title ?? "Dashboard") - SkySoft Business Management</title>
+    <link href="~/Content/lib/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+    <link href="~/Content/css/site.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="app-shell">
+        @Html.Partial("_Sidebar")
+        <div class="app-main">
+            @Html.Partial("_Header")
+            <main class="app-content">
+                @Html.Partial("_Alerts")
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+    <script src="~/Scripts/lib/jquery/jquery.min.js"></script>
+    <script src="~/Scripts/lib/bootstrap/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/lib/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/Scripts/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
