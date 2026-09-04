@@ -1,6 +1,9 @@
+@using business_managment_system.Helpers
 @{
     var current = (ViewContext.RouteData.Values["controller"] ?? "").ToString();
     Func<string, string> navClass = name => current.Equals(name, System.StringComparison.OrdinalIgnoreCase) ? "nav-link active" : "nav-link";
+    var role = (Session[SessionKeys.RoleName] as string) ?? "";
+    var isAdmin = role.Equals("Admin", System.StringComparison.OrdinalIgnoreCase) || User.IsInRole("Admin");
 }
 <aside class="app-sidebar">
     <div class="brand">
@@ -11,13 +14,20 @@
         </div>
     </div>
     <nav class="sidebar-nav">
+        <p class="nav-section">Workspace</p>
         <a class="@navClass("Dashboard")" href="@Url.Action("Index", "Dashboard")"><i class="bi bi-speedometer2"></i> Dashboard</a>
+        <p class="nav-section">Master data</p>
         <a class="@navClass("Customer")" href="@Url.Action("Index", "Customer")"><i class="bi bi-people"></i> Customers</a>
         <a class="@navClass("Supplier")" href="@Url.Action("Index", "Supplier")"><i class="bi bi-truck"></i> Suppliers</a>
         <a class="@navClass("Vendor")" href="@Url.Action("Index", "Vendor")"><i class="bi bi-wrench-adjustable"></i> Vendors</a>
         <a class="@navClass("Product")" href="@Url.Action("Index", "Product")"><i class="bi bi-box-seam"></i> Products</a>
+        <p class="nav-section">Operations</p>
         <a class="@navClass("Transaction")" href="@Url.Action("Index", "Transaction")"><i class="bi bi-receipt"></i> Transactions</a>
         <a class="@navClass("Report")" href="@Url.Action("Index", "Report")"><i class="bi bi-file-earmark-bar-graph"></i> Reports</a>
-        <a class="@navClass("User")" href="@Url.Action("Index", "User")"><i class="bi bi-person-gear"></i> End Users</a>
+        @if (isAdmin)
+        {
+            <p class="nav-section">Administration</p>
+            <a class="@navClass("User")" href="@Url.Action("Index", "User")"><i class="bi bi-person-gear"></i> End Users</a>
+        }
     </nav>
 </aside>

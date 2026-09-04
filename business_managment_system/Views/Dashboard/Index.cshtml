@@ -1,34 +1,103 @@
+@model business_managment_system.Models.DashboardViewModel
 @{
     ViewBag.Title = "Dashboard";
+    var firstName = ViewBag.UserFirstName as string ?? "there";
 }
-<p class="page-lead">Summary figures will load from SQL Server after we connect the database in the next module.</p>
+
+<div class="dash-hero">
+    <div>
+        <p class="dash-kicker">Operations overview</p>
+        <h2 class="dash-title">Good to see you, @firstName</h2>
+        <p class="page-lead mb-0">Active partners, this month’s sales, and the latest recorded activity.</p>
+    </div>
+    <div class="dash-hero-meta">
+        <span class="dash-date">@DateTime.Now.ToString("dddd, d MMMM yyyy")</span>
+        <a class="btn btn-primary btn-sm" href="@Url.Action("Index", "Transaction")"><i class="bi bi-plus-lg"></i> New transaction</a>
+    </div>
+</div>
+
 <div class="row g-3 mb-4">
     <div class="col-md-3">
-        <div class="summary-card">
-            <div class="summary-label">Customers</div>
-            <div class="summary-value">—</div>
-        </div>
+        <a class="kpi-card kpi-card--customers text-decoration-none" href="@Url.Action("Index", "Customer")">
+            <div class="kpi-icon"><i class="bi bi-people"></i></div>
+            <div>
+                <div class="summary-label">Active customers</div>
+                <div class="summary-value">@Model.ActiveCustomers</div>
+            </div>
+        </a>
     </div>
     <div class="col-md-3">
-        <div class="summary-card">
-            <div class="summary-label">Suppliers</div>
-            <div class="summary-value">—</div>
-        </div>
+        <a class="kpi-card kpi-card--suppliers text-decoration-none" href="@Url.Action("Index", "Supplier")">
+            <div class="kpi-icon"><i class="bi bi-truck"></i></div>
+            <div>
+                <div class="summary-label">Active suppliers</div>
+                <div class="summary-value">@Model.ActiveSuppliers</div>
+            </div>
+        </a>
     </div>
     <div class="col-md-3">
-        <div class="summary-card">
-            <div class="summary-label">Vendors</div>
-            <div class="summary-value">—</div>
-        </div>
+        <a class="kpi-card kpi-card--vendors text-decoration-none" href="@Url.Action("Index", "Vendor")">
+            <div class="kpi-icon"><i class="bi bi-wrench-adjustable"></i></div>
+            <div>
+                <div class="summary-label">Active vendors</div>
+                <div class="summary-value">@Model.ActiveVendors</div>
+            </div>
+        </a>
     </div>
     <div class="col-md-3">
-        <div class="summary-card">
-            <div class="summary-label">This month's sales</div>
-            <div class="summary-value">—</div>
+        <div class="kpi-card kpi-card--sales">
+            <div class="kpi-icon"><i class="bi bi-currency-dollar"></i></div>
+            <div>
+                <div class="summary-label">Sales · @Model.MonthLabel</div>
+                <div class="summary-value">$@Model.MonthSalesTotal.ToString("N2")</div>
+            </div>
         </div>
     </div>
 </div>
+
 <div class="card-panel">
-    <h2 class="h5 mb-3">Recent transactions</h2>
-    <p class="text-muted mb-0">No data yet. Transaction records will appear here after the database is created.</p>
+    <div class="panel-head">
+        <div>
+            <h2 class="h5 mb-1">Recent transactions</h2>
+            <p class="page-lead mb-0">The five most recently recorded sales, purchases, and services.</p>
+        </div>
+        <a class="btn btn-outline-secondary btn-sm" href="@Url.Action("Index", "Transaction")">View all</a>
+    </div>
+
+    @if (Model.RecentTransactions == null || Model.RecentTransactions.Count == 0)
+    {
+        <div class="table-empty">No transactions have been recorded yet.</div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table data-table mb-0">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Party</th>
+                        <th>Status</th>
+                        <th class="text-end">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var row in Model.RecentTransactions)
+                    {
+                        var typeClass = "badge-type badge-type--" + (row.TransactionType ?? "").ToLowerInvariant();
+                        var statusClass = "badge-status badge-status--" + (row.Status ?? "").ToLowerInvariant();
+                        <tr>
+                            <td class="mono">#@row.TransactionId</td>
+                            <td>@row.TransactionDate.ToString("dd MMM yyyy")</td>
+                            <td><span class="@typeClass">@row.TransactionType</span></td>
+                            <td>@row.PartyName</td>
+                            <td><span class="@statusClass">@row.Status</span></td>
+                            <td class="text-end fw-semibold">$@row.TotalAmount.ToString("N2")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
 </div>

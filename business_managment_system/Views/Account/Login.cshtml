@@ -1,3 +1,4 @@
+@model business_managment_system.Models.LoginViewModel
 @{
     Layout = "~/Views/Shared/_LayoutLogin.cshtml";
     ViewBag.Title = "Sign in";
@@ -11,18 +12,30 @@
                 <div class="brand-sub">Sign in to continue</div>
             </div>
         </div>
-        <form method="post" action="@Url.Action("Login", "Account")">
+
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
             @Html.AntiForgeryToken()
+            @Html.Hidden("returnUrl", (string)ViewBag.ReturnUrl)
+
+            if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @Html.ValidationSummary(true)
+                </div>
+            }
+
             <div class="mb-3">
-                <label class="form-label" for="username">Username</label>
-                <input class="form-control" id="username" name="username" type="text" autocomplete="username" />
+                @Html.LabelFor(m => m.Username, new { @class = "form-label" })
+                @Html.TextBoxFor(m => m.Username, new { @class = "form-control", autocomplete = "username" })
+                @Html.ValidationMessageFor(m => m.Username, "", new { @class = "field-validation-error" })
             </div>
             <div class="mb-3">
-                <label class="form-label" for="password">Password</label>
-                <input class="form-control" id="password" name="password" type="password" autocomplete="current-password" />
+                @Html.LabelFor(m => m.Password, new { @class = "form-label" })
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", autocomplete = "current-password" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "field-validation-error" })
             </div>
-            <button class="btn btn-primary w-100" type="submit" disabled>Sign in (coming next)</button>
-            <p class="form-hint">Login will be enabled after we add authentication.</p>
-        </form>
+            <button class="btn btn-primary w-100" type="submit">Sign in</button>
+        }
     </div>
 </div>

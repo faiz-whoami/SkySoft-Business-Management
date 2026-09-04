@@ -1,10 +1,32 @@
+@using business_managment_system.Helpers
+@{
+    var fullName = (Session[SessionKeys.FullName] as string) ?? (User.Identity.Name ?? "");
+    var role = (Session[SessionKeys.RoleName] as string) ?? "";
+    var initials = "S";
+    if (!string.IsNullOrWhiteSpace(fullName))
+    {
+        var parts = fullName.Split(new[] { ' ' }, System.StringSplitOptions.RemoveEmptyEntries);
+        initials = parts.Length == 1
+            ? parts[0].Substring(0, 1).ToUpperInvariant()
+            : (parts[0].Substring(0, 1) + parts[parts.Length - 1].Substring(0, 1)).ToUpperInvariant();
+    }
+}
 <header class="app-header">
     <div class="app-header-title">
         <h1>@(ViewBag.Title ?? "Dashboard")</h1>
     </div>
     <div class="app-header-user">
-        <span class="user-name">Guest</span>
-        <span class="user-role">Not signed in</span>
-        <a class="btn btn-sm btn-outline-secondary" href="@Url.Action("Login", "Account")">Sign in</a>
+        <div class="user-chip">
+            <span class="user-avatar">@initials</span>
+            <span>
+                <span class="user-name">@fullName</span>
+                <span class="user-role">@role</span>
+            </span>
+        </div>
+        @using (Html.BeginForm("Logout", "Account", FormMethod.Post, new { @class = "d-inline" }))
+        {
+            @Html.AntiForgeryToken()
+            <button class="btn btn-sm btn-outline-secondary" type="submit">Sign out</button>
+        }
     </div>
 </header>
