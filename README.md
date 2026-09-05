@@ -6,6 +6,15 @@ The Visual Studio project folder is spelled `business_managment_system` on purpo
 
 This README is the setup guide. Follow it in order whether you **cloned the Git repo** or **opened a Zip**.
 
+### Test accounts (after you run the SQL scripts)
+
+| Full name | Username | Password | Role |
+|---|---|---|---|
+| Imran Khan | `imran` | `Admin@123` | Admin |
+| Khalid Mehmood | `khalid` | `Sales@123` | Sales Staff |
+
+Usernames are lowercase. Passwords are case-sensitive. These two rows are created by `Database\03_SeedData.sql`.
+
 ---
 
 ## 1. What you need on the PC
@@ -211,7 +220,7 @@ The Reports page still works. PDFs are built from the same three stored procedur
 1. Close Visual Studio.
 2. Install **SAP Crystal Reports, developer version for Microsoft Visual Studio** (v13 / `13.0.4000.0`), **Install Package**.
 3. Re-open the solution and press **F5**.
-4. Sign in as Admin.
+4. Sign in as **Imran Khan** (`imran` / `Admin@123`).
 5. Open **Reports**.
 6. Click **Open PDF** on each of the three cards (for Transaction Detail use a seed id such as `1`).
 7. After the first successful Crystal export, these files appear under `business_managment_system\Reports\`:
@@ -277,7 +286,7 @@ Then sign out and sign in as **Khalid Mehmood** (`khalid` / `Sales@123`):
 |---|---|
 | `Database\01_CreateSchema.sql` | `SkySoftDB`, tables, keys, check constraint, indexes |
 | `Database\02_ViewsAndProcedures.sql` | `vw_PartyDirectory`, `vw_MonthlyTransactionSummary`, `sp_CreateTransactionWithItems`, `sp_Report_PartyDirectory`, `sp_Report_TransactionDetail`, `sp_Report_MonthlySummary` |
-| `Database\03_SeedData.sql` | Roles, types, statuses, the two test users, sample master data and transactions |
+| `Database\03_SeedData.sql` | Roles, types, statuses, **Imran Khan** (Admin) and **Khalid Mehmood** (Sales Staff), sample master data and transactions |
 
 ---
 

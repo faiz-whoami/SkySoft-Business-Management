@@ -2,9 +2,10 @@
 -- SkySoft Business Management
 -- 03_SeedData.sql
 -- Sample data for screens and Crystal Reports.
--- Passwords are PBKDF2 hashes (iterations.salt.hash):
---   imran   / Admin@123   / Imran Khan     (Admin)
---   khalid  / Sales@123   / Khalid Mehmood (Sales Staff)
+-- Test users (PBKDF2: iterations.salt.hash)
+--   EndUserId 1  imran   / Admin@123   / Imran Khan      / Admin
+--   EndUserId 2  khalid  / Sales@123   / Khalid Mehmood  / Sales Staff
+-- Transaction seed uses CreatedByUserId 1 = Imran Khan, 2 = Khalid Mehmood.
 -- ============================================================
 
 USE [SkySoftDB];
@@ -55,6 +56,7 @@ INSERT INTO dbo.Product (SKU, ProductName, UnitPrice) VALUES
 
 DECLARE @NewId INT;
 
+-- Sales recorded by Khalid Mehmood (Sales Staff)
 EXEC dbo.sp_CreateTransactionWithItems
     @TransactionTypeId = 1, @CustomerId = 1, @CreatedByUserId = 2,
     @TransactionDate = '2026-06-12',
@@ -73,12 +75,14 @@ EXEC dbo.sp_CreateTransactionWithItems
     @ItemsJson = N'[{"ProductId":5,"Description":"Angle Grinder 7-Inch","Quantity":4,"UnitPrice":129.00},{"ProductId":6,"Description":"Safety Harness Kit","Quantity":6,"UnitPrice":96.50}]',
     @NewTransactionId = @NewId OUTPUT;
 
+-- Sale recorded by Imran Khan (Admin)
 EXEC dbo.sp_CreateTransactionWithItems
     @TransactionTypeId = 1, @CustomerId = 5, @CreatedByUserId = 1,
     @TransactionDate = '2026-09-01',
     @ItemsJson = N'[{"ProductId":7,"Description":"Welding Helmet Auto-Dark","Quantity":3,"UnitPrice":210.00},{"ProductId":8,"Description":"Impact Socket Set (21-Pc)","Quantity":2,"UnitPrice":74.00}]',
     @NewTransactionId = @NewId OUTPUT;
 
+-- Purchases recorded by Imran Khan (Admin)
 EXEC dbo.sp_CreateTransactionWithItems
     @TransactionTypeId = 2, @SupplierId = 1, @CreatedByUserId = 1,
     @TransactionDate = '2026-06-20',
@@ -91,12 +95,14 @@ EXEC dbo.sp_CreateTransactionWithItems
     @ItemsJson = N'[{"ProductId":4,"Description":"Heavy Duty Roller Bearing","Quantity":40,"UnitPrice":62.00}]',
     @NewTransactionId = @NewId OUTPUT;
 
+-- Service recorded by Khalid Mehmood (Sales Staff)
 EXEC dbo.sp_CreateTransactionWithItems
     @TransactionTypeId = 3, @VendorId = 1, @CreatedByUserId = 2,
     @TransactionDate = '2026-07-22',
     @ItemsJson = N'[{"ProductId":null,"Description":"Freight delivery - Chicago route","Quantity":1,"UnitPrice":220.00}]',
     @NewTransactionId = @NewId OUTPUT;
 
+-- Service recorded by Imran Khan (Admin)
 EXEC dbo.sp_CreateTransactionWithItems
     @TransactionTypeId = 3, @VendorId = 2, @CreatedByUserId = 1,
     @TransactionDate = '2026-09-02',
