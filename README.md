@@ -6,6 +6,13 @@ The Visual Studio project folder is spelled `business_managment_system` on purpo
 
 This README is the setup guide. Follow it in order whether you **cloned the Git repo** or **opened a Zip**.
 
+**GitHub:** https://github.com/faiz-whoami/SkySoft-Business-Management/
+
+```powershell
+git clone https://github.com/faiz-whoami/SkySoft-Business-Management.git
+cd SkySoft-Business-Management
+```
+
 ### Test accounts (after you run the SQL scripts)
 
 | Full name | Username | Password | Role |
@@ -40,23 +47,22 @@ Reports still download as PDF if Crystal is not installed. See [section 7](#7-cr
 
 ## 2. Get the project onto the PC
 
-### Option A — Git clone
+Use **either** GitHub **or** the Zip. After that, every machine does the same SQL + Visual Studio steps.
+
+### Option A — Clone from GitHub
+
+Repo: https://github.com/faiz-whoami/SkySoft-Business-Management/
 
 ```powershell
-git clone <repo-url>
-cd business_managment_system
+git clone https://github.com/faiz-whoami/SkySoft-Business-Management.git
+cd SkySoft-Business-Management
 ```
 
-You are in the right folder when you can see all of these:
-
-- `README.md` (this file)
-- `business_managment_system.slnx`
-- `Database\`
-- `business_managment_system\` (the web project)
+You can also click **Code → Download ZIP** on that page, then continue as Option B.
 
 ### Option B — Zip file
 
-1. Extract the Zip.
+1. Extract the Zip (right-click → Extract All).
 2. Open the extracted folder until you see `README.md` and `business_managment_system.slnx`.
 3. In PowerShell:
 
@@ -67,8 +73,15 @@ cd "<path-to-that-folder>"
 Example after extract:
 
 ```powershell
-cd "$env:USERPROFILE\Downloads\business_managment_system"
+cd "$env:USERPROFILE\Downloads\SkySoft-Business-Management"
 ```
+
+### You are in the right folder when you see
+
+- `README.md` (this file)
+- `business_managment_system.slnx`
+- `Database\`
+- `business_managment_system\` (the web project)
 
 Do **not** open the inner `business_managment_system\business_managment_system` folder as the solution root. Open the folder that contains the `.slnx` file.
 
