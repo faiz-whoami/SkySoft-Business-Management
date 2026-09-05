@@ -7,15 +7,17 @@ namespace business_managment_system.Services
     public class ReportService
     {
         private readonly ReportRepository _reports;
+        private readonly CrystalPdfService _crystal;
 
         public ReportService()
-            : this(new ReportRepository())
+            : this(new ReportRepository(), new CrystalPdfService())
         {
         }
 
-        public ReportService(ReportRepository reports)
+        public ReportService(ReportRepository reports, CrystalPdfService crystal)
         {
             _reports = reports;
+            _crystal = crystal;
         }
 
         public ReportIndexViewModel GetIndex(string partyType, int? transactionId, int? year)
@@ -41,7 +43,7 @@ namespace business_managment_system.Services
             var title = string.IsNullOrWhiteSpace(partyType)
                 ? "Business Partner Directory"
                 : "Business Partner Directory - " + partyType.Trim();
-            return TablePdfWriter.FromTable(table, title);
+            return _crystal.ExportTable(table, title, "PartyDirectory");
         }
 
         public byte[] TransactionDetailPdf(int transactionId)
@@ -53,7 +55,7 @@ namespace business_managment_system.Services
                 throw new InvalidOperationException("Transaction was not found.");
             }
 
-            return TablePdfWriter.FromTable(table, "Transaction Detail #" + transactionId);
+            return _crystal.ExportTable(table, "Transaction Detail #" + transactionId, "TransactionDetail");
         }
 
         public byte[] MonthlySummaryPdf(int? year)
@@ -62,7 +64,7 @@ namespace business_managment_system.Services
             var title = year.HasValue
                 ? "Monthly Transaction Summary - " + year.Value
                 : "Monthly Transaction Summary";
-            return TablePdfWriter.FromTable(table, title);
+            return _crystal.ExportTable(table, title, "MonthlySummary");
         }
     }
 }

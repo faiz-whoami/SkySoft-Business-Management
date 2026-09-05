@@ -184,6 +184,7 @@
     <Content Include="Views\Transaction\Create.cshtml" />
     <Content Include="Views\Transaction\Details.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
+    <Content Include="Reports\README.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reports\" />
