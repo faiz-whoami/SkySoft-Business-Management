@@ -124,7 +124,7 @@
     <Compile Include="Services\EndUserService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\ReportService.cs" />
-    <Compile Include="Services\CrystalPdfService.cs" />
+    <Compile Include="Services\TablePdfWriter.cs" />
     <Compile Include="Services\SupplierService.cs" />
     <Compile Include="Services\TransactionService.cs" />
     <Compile Include="Services\VendorService.cs" />

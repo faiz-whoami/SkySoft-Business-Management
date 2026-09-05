@@ -7,18 +7,9 @@
     <div>
         <p class="dash-kicker">Operations</p>
         <h2 class="dash-title mb-0">Reports</h2>
-        <p class="page-lead mb-0">Crystal Reports v13 exports each report as a PDF. Empty results stay on this page with a message.</p>
+        <p class="page-lead mb-0">Each report downloads as a PDF. Empty results stay on this page with a message.</p>
     </div>
 </div>
-
-@if (!Model.CrystalAvailable)
-{
-    <div class="alert alert-warning" role="alert">
-        <strong>Crystal Reports is not installed on this PC yet.</strong>
-        @Model.CrystalMessage
-        The three report buttons below are wired; they will produce PDFs after CRforVS is installed.
-    </div>
-}
 
 <div class="row g-3">
     <div class="col-lg-4">
