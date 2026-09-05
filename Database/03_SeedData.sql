@@ -3,8 +3,8 @@
 -- 03_SeedData.sql
 -- Sample data for screens and Crystal Reports.
 -- Passwords are PBKDF2 hashes (iterations.salt.hash):
---   sjenkins    / Admin@123
---   mrodriguez  / Sales@123
+--   imran   / Admin@123   / Imran Khan     (Admin)
+--   khalid  / Sales@123   / Khalid Mehmood (Sales Staff)
 -- ============================================================
 
 USE [SkySoftDB];
@@ -21,8 +21,8 @@ INSERT INTO dbo.TransactionType (Name) VALUES (N'Sale'), (N'Purchase'), (N'Servi
 INSERT INTO dbo.TransactionStatus (Name) VALUES (N'Pending'), (N'Completed'), (N'Cancelled');
 
 INSERT INTO dbo.EndUser (Username, PasswordHash, FullName, RoleId) VALUES
-    (N'sjenkins',   N'10000.GLlea6kVq1V/9NfM6SWF5A==.6QfHrZAMyCB7dQ4aUYIWC97Epx1EhGQyhN5rUvuF4FY=', N'Sarah Jenkins',  1),
-    (N'mrodriguez', N'10000./7KepWsPhNweNW7GMN5SuA==.2OlHMHpgXei70wTRjVbxNOO/3Psh9IK/jVJ4bdLSNn8=', N'Mark Rodriguez', 2);
+    (N'imran',  N'10000.GLlea6kVq1V/9NfM6SWF5A==.6QfHrZAMyCB7dQ4aUYIWC97Epx1EhGQyhN5rUvuF4FY=', N'Imran Khan',      1),
+    (N'khalid', N'10000./7KepWsPhNweNW7GMN5SuA==.2OlHMHpgXei70wTRjVbxNOO/3Psh9IK/jVJ4bdLSNn8=', N'Khalid Mehmood',  2);
 
 INSERT INTO dbo.Customer (Name, Email, Phone, Address) VALUES
     (N'Acme Industrial Corp',    N'jdoe@acmeind.com',         N'(555) 019-2831', N'100 Industrial Pkwy, Chicago, IL'),

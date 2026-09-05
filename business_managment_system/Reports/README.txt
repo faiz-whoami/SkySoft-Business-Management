@@ -1,5 +1,9 @@
 SkySoft Crystal Reports (.rpt)
 
+Test logins (see the project README):
+  imran  / Admin@123  / Imran Khan      (Admin)
+  khalid / Sales@123  / Khalid Mehmood  (Sales Staff)
+
 These three files are the assignment report templates:
 
   PartyDirectory.rpt      FR-REPT-01  Business Partner Directory
