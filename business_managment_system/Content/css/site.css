@@ -22,6 +22,9 @@ body {
 
 .app-shell {
     display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 100%;
     min-height: 100vh;
 }
 
@@ -31,6 +34,11 @@ body {
     color: var(--sidebar-text);
     padding: 1.25rem 0.75rem;
     flex-shrink: 0;
+    position: sticky;
+    top: 0;
+    align-self: flex-start;
+    height: 100vh;
+    overflow-y: auto;
 }
 
 .brand {
@@ -78,6 +86,11 @@ body {
     gap: 0.65rem;
 }
 
+.sidebar-nav .nav-link i {
+    width: 1.15rem;
+    text-align: center;
+}
+
 .sidebar-nav .nav-link:hover {
     background: #1e293b;
     color: #fff;
@@ -90,7 +103,7 @@ body {
 }
 
 .app-main {
-    flex: 1;
+    flex: 1 1 0%;
     display: flex;
     flex-direction: column;
     min-width: 0;
@@ -99,21 +112,27 @@ body {
 .app-header {
     background: var(--header-bg);
     border-bottom: 1px solid var(--card-border);
-    padding: 0.9rem 1.5rem;
-    display: flex;
-    justify-content: space-between;
+    padding: 0.75rem 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex !important;
+    flex-direction: row;
+    justify-content: flex-end !important;
     align-items: center;
-}
-
-.app-header h1 {
-    font-size: 1.15rem;
-    margin: 0;
+    position: relative;
+    min-height: 3.5rem;
 }
 
 .app-header-user {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 0.75rem;
+    margin-left: auto;
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .user-name {
@@ -126,11 +145,21 @@ body {
 }
 
 .app-content {
-    padding: 1.5rem;
+    padding: 1.5rem 1.75rem 2rem;
 }
 
 .page-lead {
     color: var(--muted);
+    max-width: 40rem;
+    line-height: 1.5;
+    font-size: 0.95rem;
+}
+
+.form-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #475569;
+    margin-bottom: 0.3rem;
 }
 
 .summary-card, .card-panel {
@@ -142,12 +171,22 @@ body {
 
 .summary-label {
     color: var(--muted);
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    font-weight: 600;
 }
 
 .summary-value {
-    font-size: 1.6rem;
+    font-size: 1.55rem;
     font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+}
+
+.summary-hint {
+    margin-top: 0.15rem;
+    color: var(--muted);
+    font-size: 0.75rem;
 }
 
 .empty-state {
@@ -279,7 +318,12 @@ body {
 
 .dash-date {
     color: var(--muted);
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    background: #fff;
+    border: 1px solid var(--card-border);
+    border-radius: 999px;
+    padding: 0.35rem 0.75rem;
+    white-space: nowrap;
 }
 
 .kpi-card {
@@ -290,14 +334,17 @@ body {
     border: 1px solid var(--card-border);
     border-radius: 12px;
     padding: 1rem 1.1rem;
+    min-height: 6.25rem;
     height: 100%;
     color: inherit;
     box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
     border-top: 3px solid #cbd5e1;
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
 }
 
 .kpi-card:hover {
     box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+    transform: translateY(-1px);
 }
 
 .kpi-card--customers { border-top-color: #0284c7; }
@@ -343,6 +390,10 @@ body {
     vertical-align: middle;
 }
 
+.data-table tbody tr:hover {
+    background: #f8fafc;
+}
+
 .mono {
     font-variant-numeric: tabular-nums;
     color: var(--muted);
@@ -378,9 +429,14 @@ body {
 .page-toolbar {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     gap: 1rem;
     margin-bottom: 1.5rem;
+}
+
+.page-toolbar > div:first-child {
+    min-width: 0;
+    flex: 1;
 }
 
 .toolbar-actions {
@@ -452,10 +508,25 @@ body {
 }
 
 @media (max-width: 768px) {
+    .app-sidebar {
+        position: relative;
+        height: auto;
+        width: 100%;
+    }
+
+    .app-shell {
+        flex-direction: column;
+    }
+
     .page-toolbar,
-    .dash-hero {
+    .dash-hero,
+    .dash-hero-meta {
         flex-direction: column;
         align-items: stretch;
+    }
+
+    .dash-date {
+        text-align: center;
     }
 }
 

@@ -5,9 +5,7 @@
 
 <div class="page-toolbar">
     <div>
-        <p class="dash-kicker">Operations</p>
         <h2 class="dash-title mb-0">Transactions</h2>
-        <p class="page-lead mb-0">Sales, purchases, and services. New records start as Pending.</p>
     </div>
     <a class="btn btn-primary" href="@Url.Action("Create")"><i class="bi bi-plus-lg"></i> New transaction</a>
 </div>
@@ -17,7 +15,7 @@
     {
         <div class="filter-field">
             <label class="form-label" for="search">Search</label>
-            @Html.TextBoxFor(m => m.Search, new { @class = "form-control", id = "search", placeholder = "ID or party name…" })
+            @Html.TextBoxFor(m => m.Search, new { @class = "form-control", id = "search", placeholder = "ID or party name..." })
         </div>
         <div class="filter-field filter-field--status">
             <label class="form-label" for="type">Type</label>

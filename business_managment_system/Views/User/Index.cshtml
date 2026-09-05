@@ -5,9 +5,7 @@
 
 <div class="page-toolbar">
     <div>
-        <p class="dash-kicker">Administration</p>
         <h2 class="dash-title mb-0">End Users</h2>
-        <p class="page-lead mb-0">Sign-in accounts for SkySoft. Passwords are stored as hashes. You cannot deactivate your own account, and at least one active administrator must remain.</p>
     </div>
     <a class="btn btn-primary" href="@Url.Action("Create")"><i class="bi bi-plus-lg"></i> New user</a>
 </div>
@@ -17,7 +15,7 @@
     {
         <div class="filter-field">
             <label class="form-label" for="search">Search</label>
-            @Html.TextBoxFor(m => m.Search, new { @class = "form-control", id = "search", placeholder = "Name or username…" })
+            @Html.TextBoxFor(m => m.Search, new { @class = "form-control", id = "search", placeholder = "Name or username..." })
         </div>
         <div class="filter-field filter-field--status">
             <label class="form-label" for="status">Status</label>

@@ -6,18 +6,16 @@
 
 <div class="dash-hero">
     <div>
-        <p class="dash-kicker">Operations overview</p>
         <h2 class="dash-title">Good to see you, @firstName</h2>
-        <p class="page-lead mb-0">Active partners, this month’s sales, and the latest recorded activity.</p>
     </div>
     <div class="dash-hero-meta">
         <span class="dash-date">@DateTime.Now.ToString("dddd, d MMMM yyyy")</span>
-        <a class="btn btn-primary btn-sm" href="@Url.Action("Index", "Transaction")"><i class="bi bi-plus-lg"></i> New transaction</a>
+        <a class="btn btn-primary btn-sm" href="@Url.Action("Create", "Transaction")"><i class="bi bi-plus-lg"></i> New transaction</a>
     </div>
 </div>
 
 <div class="row g-3 mb-4">
-    <div class="col-md-3">
+    <div class="col-sm-6 col-xl-3">
         <a class="kpi-card kpi-card--customers text-decoration-none" href="@Url.Action("Index", "Customer")">
             <div class="kpi-icon"><i class="bi bi-people"></i></div>
             <div>
@@ -26,7 +24,7 @@
             </div>
         </a>
     </div>
-    <div class="col-md-3">
+    <div class="col-sm-6 col-xl-3">
         <a class="kpi-card kpi-card--suppliers text-decoration-none" href="@Url.Action("Index", "Supplier")">
             <div class="kpi-icon"><i class="bi bi-truck"></i></div>
             <div>
@@ -35,7 +33,7 @@
             </div>
         </a>
     </div>
-    <div class="col-md-3">
+    <div class="col-sm-6 col-xl-3">
         <a class="kpi-card kpi-card--vendors text-decoration-none" href="@Url.Action("Index", "Vendor")">
             <div class="kpi-icon"><i class="bi bi-wrench-adjustable"></i></div>
             <div>
@@ -44,12 +42,13 @@
             </div>
         </a>
     </div>
-    <div class="col-md-3">
+    <div class="col-sm-6 col-xl-3">
         <div class="kpi-card kpi-card--sales">
             <div class="kpi-icon"><i class="bi bi-currency-dollar"></i></div>
             <div>
-                <div class="summary-label">Sales · @Model.MonthLabel</div>
+                <div class="summary-label">Sales this month</div>
                 <div class="summary-value">$@Model.MonthSalesTotal.ToString("N2")</div>
+                <div class="summary-hint">@Model.MonthLabel</div>
             </div>
         </div>
     </div>
@@ -59,7 +58,6 @@
     <div class="panel-head">
         <div>
             <h2 class="h5 mb-1">Recent transactions</h2>
-            <p class="page-lead mb-0">The five most recently recorded sales, purchases, and services.</p>
         </div>
         <a class="btn btn-outline-secondary btn-sm" href="@Url.Action("Index", "Transaction")">View all</a>
     </div>
@@ -88,7 +86,9 @@
                         var typeClass = "badge-type badge-type--" + (row.TransactionType ?? "").ToLowerInvariant();
                         var statusClass = "badge-status badge-status--" + (row.Status ?? "").ToLowerInvariant();
                         <tr>
-                            <td class="mono">#@row.TransactionId</td>
+                            <td class="mono">
+                                <a class="table-link" href="@Url.Action("Details", "Transaction", new { id = row.TransactionId })">#@row.TransactionId</a>
+                            </td>
                             <td>@row.TransactionDate.ToString("dd MMM yyyy")</td>
                             <td><span class="@typeClass">@row.TransactionType</span></td>
                             <td>@row.PartyName</td>

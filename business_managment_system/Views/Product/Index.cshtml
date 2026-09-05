@@ -6,19 +6,7 @@
 
 <div class="page-toolbar">
     <div>
-        <p class="dash-kicker">Master data</p>
         <h2 class="dash-title mb-0">Products</h2>
-        <p class="page-lead mb-0">
-            Catalogue items used on sales, purchases, and services.
-            @if (canManage)
-            {
-                <text>Deactivated products stay in the database — use Status → Inactive to find and reactivate them.</text>
-            }
-            else
-            {
-                <text>Sales Staff can view the catalogue. Only an administrator can add or change products.</text>
-            }
-        </p>
     </div>
     @if (canManage)
     {
@@ -31,7 +19,7 @@
     {
         <div class="filter-field">
             <label class="form-label" for="search">Search</label>
-            @Html.TextBoxFor(m => m.Search, new { @class = "form-control", id = "search", placeholder = "Name or SKU…" })
+            @Html.TextBoxFor(m => m.Search, new { @class = "form-control", id = "search", placeholder = "Name or SKU..." })
         </div>
         <div class="filter-field filter-field--status">
             <label class="form-label" for="status">Status</label>
@@ -76,7 +64,7 @@
                     @foreach (var item in Model.Items)
                     {
                         <tr>
-                            <td class="mono">@(string.IsNullOrWhiteSpace(item.Sku) ? "—" : item.Sku)</td>
+                            <td class="mono">@(string.IsNullOrWhiteSpace(item.Sku) ? "-" : item.Sku)</td>
                             <td>
                                 <a class="table-link" href="@Url.Action("Details", new { id = item.ProductId })">@item.ProductName</a>
                             </td>

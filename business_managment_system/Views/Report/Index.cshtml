@@ -5,18 +5,14 @@
 
 <div class="page-toolbar">
     <div>
-        <p class="dash-kicker">Operations</p>
         <h2 class="dash-title mb-0">Reports</h2>
-        <p class="page-lead mb-0">Each report downloads as a PDF. Empty results stay on this page with a message.</p>
     </div>
 </div>
 
 <div class="row g-3">
     <div class="col-lg-4">
         <div class="card-panel h-100 report-card">
-            <p class="dash-kicker">FR-REPT-01</p>
             <h2 class="h5">Business Partner Directory</h2>
-            <p class="page-lead">Active customers, suppliers, and vendors, grouped by type.</p>
             @using (Html.BeginForm("PartyDirectory", "Report", FormMethod.Get))
             {
                 <label class="form-label" for="partyType">Party type</label>
@@ -32,9 +28,7 @@
     </div>
     <div class="col-lg-4">
         <div class="card-panel h-100 report-card">
-            <p class="dash-kicker">FR-REPT-02</p>
             <h2 class="h5">Transaction Detail Statement</h2>
-            <p class="page-lead">One transaction with line items, party, and recorded-by.</p>
             @using (Html.BeginForm("TransactionDetail", "Report", FormMethod.Get))
             {
                 <label class="form-label" for="id">Transaction ID</label>
@@ -45,9 +39,7 @@
     </div>
     <div class="col-lg-4">
         <div class="card-panel h-100 report-card">
-            <p class="dash-kicker">FR-REPT-03</p>
             <h2 class="h5">Monthly Transaction Summary</h2>
-            <p class="page-lead">Counts and totals by year, month, and type.</p>
             @using (Html.BeginForm("MonthlySummary", "Report", FormMethod.Get))
             {
                 <label class="form-label" for="year">Year</label>

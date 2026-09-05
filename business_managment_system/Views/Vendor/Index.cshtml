@@ -6,19 +6,7 @@
 
 <div class="page-toolbar">
     <div>
-        <p class="dash-kicker">Master data</p>
         <h2 class="dash-title mb-0">Vendors</h2>
-        <p class="page-lead mb-0">
-            Service partners for freight, installation, and other work.
-            @if (canManage)
-            {
-                <text>Deactivated records stay in the database — use Status → Inactive to find and reactivate them.</text>
-            }
-            else
-            {
-                <text>Sales Staff can view this directory. Only an administrator can add or change vendors.</text>
-            }
-        </p>
     </div>
     @if (canManage)
     {
@@ -31,7 +19,7 @@
     {
         <div class="filter-field">
             <label class="form-label" for="search">Search by name</label>
-            @Html.TextBoxFor(m => m.Search, new { @class = "form-control", id = "search", placeholder = "SwiftLine, Harbor Crane…" })
+            @Html.TextBoxFor(m => m.Search, new { @class = "form-control", id = "search", placeholder = "SwiftLine, Harbor Crane..." })
         </div>
         <div class="filter-field filter-field--status">
             <label class="form-label" for="status">Status</label>
@@ -80,9 +68,9 @@
                             <td>
                                 <a class="table-link" href="@Url.Action("Details", new { id = item.VendorId })">@item.Name</a>
                             </td>
-                            <td>@(string.IsNullOrWhiteSpace(item.ServiceType) ? "—" : item.ServiceType)</td>
-                            <td>@(string.IsNullOrWhiteSpace(item.Email) ? "—" : item.Email)</td>
-                            <td>@(string.IsNullOrWhiteSpace(item.Phone) ? "—" : item.Phone)</td>
+                            <td>@(string.IsNullOrWhiteSpace(item.ServiceType) ? "-" : item.ServiceType)</td>
+                            <td>@(string.IsNullOrWhiteSpace(item.Email) ? "-" : item.Email)</td>
+                            <td>@(string.IsNullOrWhiteSpace(item.Phone) ? "-" : item.Phone)</td>
                             <td>
                                 <span class="badge-status @(item.IsActive ? "badge-status--completed" : "badge-status--cancelled")">
                                     @(item.IsActive ? "Active" : "Inactive")

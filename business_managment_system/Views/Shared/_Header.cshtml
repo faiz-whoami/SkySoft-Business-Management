@@ -11,10 +11,7 @@
             : (parts[0].Substring(0, 1) + parts[parts.Length - 1].Substring(0, 1)).ToUpperInvariant();
     }
 }
-<header class="app-header">
-    <div class="app-header-title">
-        <h1>@(ViewBag.Title ?? "Dashboard")</h1>
-    </div>
+<header class="app-header" style="display:flex;justify-content:flex-end;width:100%;">
     <div class="app-header-user">
         <div class="user-chip">
             <span class="user-avatar">@initials</span>

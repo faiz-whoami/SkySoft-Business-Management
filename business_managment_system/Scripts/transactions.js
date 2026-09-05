@@ -29,7 +29,7 @@
         var html = '<option value="">Custom line</option>';
         for (var i = 0; i < products.length; i++) {
             var product = products[i];
-            var label = (product.Sku ? product.Sku + " · " : "") + product.ProductName;
+            var label = (product.Sku ? product.Sku + " - " : "") + product.ProductName;
             html += '<option value="' + product.ProductId + '" data-price="' + product.UnitPrice + '" data-name="' + escapeHtml(product.ProductName) + '">'
                 + escapeHtml(label) + "</option>";
         }
@@ -48,7 +48,7 @@
 
     function fillParties($select, parties, selected) {
         $select.empty();
-        $select.append($("<option>", { value: "", text: "Select…" }));
+        $select.append($("<option>", { value: "", text: "Select..." }));
         for (var i = 0; i < parties.length; i++) {
             $select.append($("<option>", { value: parties[i].Id, text: parties[i].Name }));
         }

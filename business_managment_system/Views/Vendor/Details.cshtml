@@ -7,7 +7,6 @@
 
 <div class="page-toolbar">
     <div>
-        <p class="dash-kicker">Vendors</p>
         <h2 class="dash-title mb-0">@vendor.Name</h2>
         <p class="page-lead mb-0">
             <span class="badge-status @(vendor.IsActive ? "badge-status--completed" : "badge-status--cancelled")">
@@ -30,13 +29,13 @@
             <h2 class="h6 text-uppercase text-muted mb-3">Contact</h2>
             <dl class="detail-list">
                 <dt>Service type</dt>
-                <dd>@(string.IsNullOrWhiteSpace(vendor.ServiceType) ? "—" : vendor.ServiceType)</dd>
+                <dd>@(string.IsNullOrWhiteSpace(vendor.ServiceType) ? "-" : vendor.ServiceType)</dd>
                 <dt>Email</dt>
-                <dd>@(string.IsNullOrWhiteSpace(vendor.Email) ? "—" : vendor.Email)</dd>
+                <dd>@(string.IsNullOrWhiteSpace(vendor.Email) ? "-" : vendor.Email)</dd>
                 <dt>Phone</dt>
-                <dd>@(string.IsNullOrWhiteSpace(vendor.Phone) ? "—" : vendor.Phone)</dd>
+                <dd>@(string.IsNullOrWhiteSpace(vendor.Phone) ? "-" : vendor.Phone)</dd>
                 <dt>Address</dt>
-                <dd>@(string.IsNullOrWhiteSpace(vendor.Address) ? "—" : vendor.Address)</dd>
+                <dd>@(string.IsNullOrWhiteSpace(vendor.Address) ? "-" : vendor.Address)</dd>
                 <dt>Created</dt>
                 <dd>@vendor.CreatedDate.ToString("dd MMM yyyy")</dd>
             </dl>
